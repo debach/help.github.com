@@ -89,6 +89,15 @@ p(. I did not have luck with this approach; GIT_SSH was set to plink.exe already
 
 p(. I couldn't get the latest versions of plink and pageant (as of 2008-Nov-15) to talk, and I'm not running Cygwin. The only solution was to revert to using open-ssh by setting @GIT_SSH@ to @C:\Program Files\prg\Git\bin\ssh.exe@. -- "dandv":http://github.com/dandv
 
+h3. TortoisePlink popps up and asks for username ("login as")
+
+When trying to access a github.com repository, a prompt titled "TortoisePlink" may pop up, asking to supply the username to login with. Independant of the typed in text, PuTTY will claim that there are no authentication methods available. To solve this, clear or delete the following registry entry:
+<pre>
+HKEY_CURRENT_USER > Software > SimonTatham > Putty >
+                  > Sessions > Default%20Settings > HostName
+</pre>
+This solution was taken from a "similar TortoiseSVN complaint":http://old.nabble.com/Bug-with-TortoisePlink-td18812277.html.
+					   
 h2. On Windows, you can't type "y" to confirm the "Store [server's host] key in cache?" prompt
 
 This happens because git eats up the ssh client's STDIN output. To work around that, launch @ssh github.com@ or @plink.exe -agent github.com@ standalone and press "y" at the prompt.
